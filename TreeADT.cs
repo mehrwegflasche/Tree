@@ -1,7 +1,7 @@
-public abstract class Tree
+public abstract class TreeADT
 {
     private bool _isEmpty;
-    public abstract class Position
+    public abstract class Node
     {
         /// <summary>
         /// Returns the element stored.
@@ -14,14 +14,14 @@ public abstract class Tree
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public abstract bool Equals(Position p);
+        public abstract bool Equals(Node p);
 
         /// <summary>
         /// Returns true if the position represents the same location.
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public abstract bool NotEquals(Position p);
+        public abstract bool NotEquals(Node p);
     }
 
     /// <summary>
@@ -29,25 +29,25 @@ public abstract class Tree
     /// This may return null if the root is empty.
     /// </summary>
     /// <value></value>
-    public abstract Position Root { get; set; }
+    public abstract Node Root { get; set; }
 
     /// <summary>
     /// Returns position representing the Parent.
     /// </summary>
     /// <value></value>
-    public abstract Position Parent { get; set; }
+    public abstract Node Parent(Node p);
 
     /// <summary>
     /// Returns the number of children the Position has.
     /// </summary>
     /// <value></value>
-    public abstract int NumberOfChildren(Position p);
+    public abstract int NumberOfChildren(Node p);
 
     /// <summary>
     /// Returns a list of Postions representing p's children.
     /// </summary>
     /// <value></value>
-    public abstract List<Position> Children(Position p);
+    public abstract List<Node> Children(Node p);
 
     /// <summary>
     /// Returns the total number of elements in a tree. 
@@ -60,7 +60,7 @@ public abstract class Tree
     /// </summary>
     /// <param name="p"></param>
     /// <returns></returns>
-    public bool IsRoot(Position p)
+    public bool IsRoot(Node p)
     {
         return Root == p;
     }
@@ -79,7 +79,7 @@ public abstract class Tree
     /// </summary>
     /// <param name="p"></param>
     /// <returns></returns>
-    public bool IsLeaf(Position p)
+    public bool IsLeaf(Node p)
     {
         return NumberOfChildren(p) == 0;
     }
@@ -89,7 +89,7 @@ public abstract class Tree
     /// </summary>
     /// <param name="p"></param>
     /// <returns></returns>
-    public int Depth(Position p)
+    public int Depth(Node p)
     {
         if (IsRoot(p))
         {
@@ -97,7 +97,7 @@ public abstract class Tree
         }
         else
         {
-            return 1 + Depth(this.Parent);
+            return 1 + Depth(Parent(p));
         }
     }
 
